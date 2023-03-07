@@ -4,15 +4,17 @@ from dotenv import load_dotenv
 import os
 
 load_dotenv()
-train_key = os.environ.get('train_key')
+train_key = os.environ['TRAIN_KEY']
 
 def output_keyvlaue(st, di):
-    try:
-        response = CTI.getCTI(train_key, st, di)
-        # Text_LIST = resText.list_to_TEXT(response)
-        print(response)
-
-        return response
     
-    except:
-        print('오류 발생')
+    
+    response = CTI.getCTI(train_key, st, di)
+    # Text_LIST = resText.list_to_TEXT(response)
+
+    return response
+    
+    
+
+if __name__ == '__main__':
+    print(output_keyvlaue('금천구청', '하행'))

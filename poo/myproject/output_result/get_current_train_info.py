@@ -12,9 +12,9 @@ CERTIFICATION_KEY = os.environ['TRAIN_KEY']
 
 
 def get_station_number(STATION_NAME):
-    conn = sqlite3.connect('../result.db')
+    conn = sqlite3.connect('./result.db')
     c = conn.cursor()
-    c.execute(f'SELECT * FROM station WHERE stationname = :NAME', {'NAME': STATION_NAME})
+    c.execute(f'''SELECT * FROM "station" WHERE stationname = :NAME''', {'NAME': STATION_NAME})
 
     station_number = c.fetchone()[2]
     return int(station_number)
@@ -116,11 +116,9 @@ def get_current_train_info(TRAIN_LIST, UPDNLINE = '하행'):
 def getCTI(CERTIFICATION_KEY, STATION_NAME, UPDNLINE = '하행'):
     train_list = get_arrival_train_list(CERTIFICATION_KEY, STATION_NAME)
     
-    try:
-        return get_current_train_info(train_list, UPDNLINE)
 
-    except:
-        return '입력 정보를 다시 확인하십시오.'
+    return get_current_train_info(train_list, UPDNLINE)
+
 
 if __name__ == '__main__':
 

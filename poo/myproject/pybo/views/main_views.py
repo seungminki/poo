@@ -40,7 +40,7 @@ def start_record():
     # a_result = analysisResult_json.get('result')
     # # result_sentence = f"<{a_result}>\n 결과가 맞으십니까?"
 
-    path.append("../myproject/processing")
+    path.append("./processing")
     from station_processing import text_precessing, str_indexing
     a_result = '종로오가역 하행 열차 시간 알려줘'
     # a_result = '종로오가역 하행 열차 시간 알려줘'
@@ -51,7 +51,7 @@ def start_record():
     station, direction = str_indexing(answer)
     # station, direction = 종로5가, 하행
 
-    path.append("../myproject/output_result")
+    path.append("./output_result")
     from total import output_keyvlaue
     response = output_keyvlaue(station, direction)
 

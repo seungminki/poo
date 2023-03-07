@@ -3,7 +3,7 @@ def text_precessing(a_result):
 
     path = "processing_rule.table"
 
-    with open("C:/Users/rltmdals/Documents/GitHub/STTpj/poo/myproject/processing/processing_rule.table", 'r', encoding='UTF8') as tb:
+    with open("C:/Users/user/Desktop/project/smKgit/poo/myproject/processing/processing_rule.table", 'r', encoding='UTF8') as tb:
         lines = tb.readlines()
 
         for line in lines[1:]:
