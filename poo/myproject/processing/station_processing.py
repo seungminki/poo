@@ -1,9 +1,11 @@
 def text_precessing(a_result):
     KOR_DIC = dict()
 
-    path = "processing_rule.table"
+    from pathlib import Path
 
-    with open("C:/Users/rltmdals/Documents/GitHub/STTpj/poo/myproject/processing/processing_rule.table", 'r', encoding='UTF8') as tb:
+    tb_path = f"{Path.cwd()}/processing/processing_rule.table"
+    
+    with open(tb_path, 'r', encoding='UTF8') as tb:
         lines = tb.readlines()
 
         for line in lines[1:]:

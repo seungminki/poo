@@ -5,11 +5,17 @@
     설정해준다
 3. flask run으로 실행한다
 
-# 깃 올리기
+# 깃 처음 올릴 때
 git init
 git add .
 git commit -m "message"
 git remote add origin "github/your_repo.git"
+git push -u origin master
+
+# 깃 업데이트 할 때
+git add .
+git commit -m "message"
+git remote -v
 git push -u origin master
 
 만약 master 브랜치가 없어서 발생하는 오류라면:
@@ -25,6 +31,8 @@ git log
 git rm .env --cached
 .env 캐시 지우기
 
+git remote remove origin
+원격 저장소 연결 끊기
 
 404 서버가 요청한 페이지 없음(Not Found)
 
