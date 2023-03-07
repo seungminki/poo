@@ -1,0 +1,135 @@
+<!--
+    시작 화면
+-->
+<link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.min.css') }}">
+    <meta charset=utf-8>
+    <head>
+            <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+            integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+        <!-- Optional JavaScript -->
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
+
+        <link href="https://fonts.googleapis.com/css2?family=Song+Myung&display=swap" rel="stylesheet">
+        <title>Test</title> 
+
+        <script>
+
+        // $(document).ready(function () {
+        //     myposting();
+        // });
+
+
+          function myposting(response) {
+            $('#mylst').empty()
+            // 주문목록 보기 API 연결
+					$.ajax({
+                type: "GET",
+                url: '/start-record/',
+                data: {},
+                success: function(response) {
+                    // let lists = response['list']
+                    console.log(response)
+                    for (i=0; i<response.length; i++) {
+                        let train_num = response[i][0]
+                        let destination = response[i][1]
+                        let fast = response[i][2]
+                        let howfar = response[i][3]
+                        let howwhere = response[i][4]
+                        let status = response[i][5]
+
+                        let temp_html = `<tr>
+                                            <td>${train_num}</td>
+                                            <td>${destination}</td>
+                                            <td>${fast}</td>
+                                            <td>${howfar}</td>
+                                            <td>${howwhere}</td>
+                                            <td>${status}</td>
+                                        </tr>`
+
+                        $('#mylst').append(temp_html)
+                    }
+                    }
+                })
+            }
+
+
+        </script>
+        
+
+    </head>
+    <body>
+        <h1>My Website</h1>
+        <h2>Please Input Audio</h2>
+        <!-- 질문 목록 -->
+        <h3>최근 조회 목록</h3>
+        <table class="table">
+            <tbody>
+            <!-- 질문 목록 -->
+            {% if question_list %}
+            <ul>
+            {% for question in question_list %}
+                <li>{{ question.input }}</li>
+            {% endfor %}
+            </ul>
+            {% else %}
+            <p>질문이 없습니다.</p>
+            {% endif %}
+                    </tbody>
+        </table>
+        <button id="naebtn" onclick="myposting()" class="btn btn-outline-secondary" type="button">등록</button>
+        <!-- <button onclick="myposting()">등록</button> -->
+
+        <div class="table-responsive">
+            <table class="table align-middle">
+                <thead>
+                <tr>
+                    <th scope="col" class="w-20"></th>
+                    <th scope="col" class="w-20">출판사</th>
+                    <th scope="col" class="w-20">시리즈제목</th>
+                    <th scope="col" class="w-20">제목</th>
+                    <th scope="col" class="w-20">권수1</th>
+                    <th scope="col" class="w-20">권수2</th>
+                </tr>
+                </thead>
+                <tbody id="mylst">
+
+                </tbody>
+            </table>
+        </div>
+
+
+    </body>
+
+
+    <!-- 
+    결과 성공 화면
+<head><title>Result</title> 
+    <meta charset=utf-8>
+    <head>
+
+    </head>
+    <body>
+        <h1>My Website</h1>
+        <h2>Success!!</h2>
+        <h3>"{{answer_sentence}}"\n
+            맞으신가요?
+        </h3>
+        {% for c in output_list %}
+        {{ c }}
+        {% endfor %}
+        <button> <a href="/">Back Home</a></button>
+
+    </body> -->
