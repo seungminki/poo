@@ -1,4 +1,5 @@
 # poo
+![poster](./화면 캡처 2023-03-08 182159.png)
 1. "등록" 버튼은 음성을 넣어 조회할 수 있음
 2. 임의 버튼은 문장을 임의대로 넣어 조회할 수 있음
 
@@ -21,6 +22,7 @@
 16. pip install flask-migrate
 17. pip install Flask-SQLAlchemy==2.5.1
 18. pip list
+```Python
 Package            Version
 ------------------ ---------
 alembic            1.10.1
@@ -45,25 +47,35 @@ typing_extensions  4.5.0
 urllib3            1.26.14
 Werkzeug           2.2.3
 wheel              0.38.4
-
+```
 (버전을 잘 확인해볼것)
+
+
 19. git clone "git-url" myproject
 20. 환경변수 설정
+```Python
 export FLASK_APP=pybo
 export FLASK_DEBUG=true
 export FLASK_RUN_PORT=80
+```
 21. pybo 파일 윗단으로 이동하여
+```Python
 flask db init (데이터 베이스 초기화하는 명령어)
 flask db migrate
 flask db upgrade
+```
 23. sudo 권한없이 80번 포트로 바꾸는 법
+```Python
 sudo apt install authbind
 sudo touch /etc/authbind/byport/80
 sudo chmod 777 /etc/authbind/byport/80
 authbind --deep flask run --host=0.0.0.0
+```
 22. pyaudio 설치 오류났을 때
-pip list로 확인
+```Python
+pip list
 pip install pyaudio - (error: subprocess-exited-with-error)라는 오류 발생
 sudo apt-get install portaudio19-dev
 pip install pyaudio (설치 성공)
 pip list로 확인
+```
