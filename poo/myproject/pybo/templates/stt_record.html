@@ -23,25 +23,42 @@
             crossorigin="anonymous"></script>
 
         <link href="https://fonts.googleapis.com/css2?family=Song+Myung&display=swap" rel="stylesheet">
-        <title>Test</title> 
+
+        <title>실시간 지하철 정보 조회</title>
+
+        <style>
+            /* * {
+                font-family: 'Nanum Gothic Coding', monospace;
+            } */
+            .wrap {
+                margin : 100px auto auto auto;
+                width : 800px;
+            }
+
+            .h {
+                font-family: 'Black Han Sans', sans-serif;
+            }
+
+            .mytable {
+                margin: 10px auto 10px auto;
+                padding: 30px;
+                width: 300px;
+            }
+
+            .mybtn {
+                margin-bottom: 10px;
+            }
+        </style>
 
         <script>
 
-        // $(document).ready(function () {
-        //     myposting();
-        // });
-
-
           function myposting(response) {
             $('#mylst').empty()
-            // 주문목록 보기 API 연결
 					$.ajax({
                 type: "GET",
                 url: '/start-record/',
                 data: {},
                 success: function(response) {
-                    // let lists = response['list']
-                    console.log(response)
                     for (i=0; i<response.length; i++) {
                         let train_num = response[i][0]
                         let destination = response[i][1]
@@ -65,71 +82,100 @@
                 })
             }
 
+            function mygara(response) {
+                $('#mylst').empty()
+                        $.ajax({
+                    type: "GET",
+                    url: '/start-gara/',
+                    data: {},
+                    success: function(response) {
+                        for (i=0; i<response.length; i++) {
+                            let train_num = response[i][0]
+                            let destination = response[i][1]
+                            let fast = response[i][2]
+                            let howfar = response[i][3]
+                            let howwhere = response[i][4]
+                            let status = response[i][5]
+
+                            let temp_html = `<tr>
+                                                <td>${train_num}</td>
+                                                <td>${destination}</td>
+                                                <td>${fast}</td>
+                                                <td>${howfar}</td>
+                                                <td>${howwhere}</td>
+                                                <td>${status}</td>
+                                            </tr>`
+
+                            $('#mylst').append(temp_html)
+                        }
+                        }
+                    })
+            }
+
 
         </script>
         
 
     </head>
     <body>
-        <h1>My Website</h1>
-        <h2>Please Input Audio</h2>
-        <!-- 질문 목록 -->
-        <h3>최근 조회 목록</h3>
-        <table class="table">
-            <tbody>
-            <!-- 질문 목록 -->
-            {% if question_list %}
-            <ul>
-            {% for question in question_list %}
-                <li>{{ question.input }}</li>
-            {% endfor %}
-            </ul>
-            {% else %}
-            <p>질문이 없습니다.</p>
-            {% endif %}
-                    </tbody>
-        </table>
-        <button id="naebtn" onclick="myposting()" class="btn btn-outline-secondary" type="button">등록</button>
-        <!-- <button onclick="myposting()">등록</button> -->
 
-        <div class="table-responsive">
-            <table class="table align-middle">
+        <div class = "wrap text-center">
+            <figure class="text-center">
+                <blockquote class="blockquote">
+                  <h1>1호선 실시간 위치 조회 서비스</h1>
+                </blockquote>
+                <br>
+                <blockquote class="blockquote">
+                    <h5>음성으로 1호선 역별 실시간 도착 정보를 안내받을 수 있습니다.</h5>
+                    <h5>아래 '등록' 버튼을 누른 후 버튼 색깔이 빨간 색으로 바뀌면 말하세요.</h5>
+                </blockquote>
+            </figure>
+
+            <!-- <div class = "mytable"> -->
+            <table class="mytable table-light text-center">
                 <thead>
-                <tr>
-                    <th scope="col" class="w-20"></th>
-                    <th scope="col" class="w-20">출판사</th>
-                    <th scope="col" class="w-20">시리즈제목</th>
-                    <th scope="col" class="w-20">제목</th>
-                    <th scope="col" class="w-20">권수1</th>
-                    <th scope="col" class="w-20">권수2</th>
-                </tr>
+                    <tr>
+                        <th scope="col">최근 조회 목록</th>
+                    </tr>
                 </thead>
-                <tbody id="mylst">
+                <tbody>
+                    {% if question_list %}
+
+                    {% for question in question_list %}
+
+                        <tr class="table-primary">
+                            <td>{{ question.input }}</td>
+                        
+                    {% endfor %}
+                    {% else %}
+                        <tr class="table-primary">
+                            <td>조회 기록이 없습니다.</td>
+                    {% endif %}
 
                 </tbody>
             </table>
+                
+            <button id="naebtn" onclick="myposting()" class="btn mybtn btn-success" type="button">등록</button>
+
+            <button id="naebtn2" onclick="mygara()" class="btn mybtn btn-outline-secondary" type="button">임의</button>
+
+            <div class="table-responsive">
+                <table class="table align-middle text-center">
+                    <thead>
+                    <tr>
+                        <th scope="col" class="w-20">열차번호</th>
+                        <th scope="col" class="w-20">행선지</th>
+                        <th scope="col" class="w-20">급행여부</th>
+                        <th scope="col" class="w-20">몇개 역 전</th>
+                        <th scope="col" class="w-20">현위치</th>
+                        <th scope="col" class="w-20">열차 상태</th>
+                    </tr>
+                    </thead>
+                    <tbody id="mylst">
+
+                    </tbody>
+                </table>
+            </div>
         </div>
 
-
     </body>
-
-
-    <!-- 
-    결과 성공 화면
-<head><title>Result</title> 
-    <meta charset=utf-8>
-    <head>
-
-    </head>
-    <body>
-        <h1>My Website</h1>
-        <h2>Success!!</h2>
-        <h3>"{{answer_sentence}}"\n
-            맞으신가요?
-        </h3>
-        {% for c in output_list %}
-        {{ c }}
-        {% endfor %}
-        <button> <a href="/">Back Home</a></button>
-
-    </body> -->

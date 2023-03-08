@@ -8,17 +8,18 @@ import scipy.io as sio
 import scipy.io.wavfile
 import numpy as np
 import matplotlib.pyplot as plt
-from sttapi import SttApi
 
-class Record_api:
+def Record_api():
 # 설정
+    from sttapi import SttApi
     WAVE_OUTPUT_FILENAME = "output.wav"
     CHUNK = 1024
     FORMAT = pyaudio.paInt16
     CHANNELS = 1
     RATE = 16000
-    RECORD_SECONDS = 30
-    KEYWORD = '' # 예) 안녕|하세
+    RECORD_SECONDS = 10
+    KEYWORD = ' ' # 예) 안녕|하세, 사당|독산|서울
+    print("Record_api")
 
     p = pyaudio.PyAudio()
 
@@ -27,6 +28,7 @@ class Record_api:
                     rate=RATE,
                     input=True,
                     frames_per_buffer=CHUNK)
+    
 
     print("Start to record the audio.")
 
@@ -54,10 +56,9 @@ class Record_api:
     while(stt.STT_STATUS == 'P01' or stt.STT_STATUS == 'P02'):
         print('')
     # finish
-    res = stt.finish(sttId)
-    print('==============================result==============================')
-    print(res.json())
-    print('==============================result==============================')
+    res2 = stt.finish(sttId)
+    
+    thdSend.join()
 
     # save audio
     wf = wave.open(WAVE_OUTPUT_FILENAME, 'wb')
@@ -67,19 +68,8 @@ class Record_api:
     wf.writeframes(b''.join(stt.getData()))
     wf.close()
 
-    # # graph
-    # rate, data = sio.wavfile.read(WAVE_OUTPUT_FILENAME)
-    # size = len(data)
-    # times = np.arange(size)/float( rate)
+    b = res2.json()
+    analysisResult_json = b.get('analysisResult')
+    a_result = analysisResult_json.get('result')
 
-    # print ('sample_size: ', size)
-    # print ('shape of data: ', data.shape )
-    # print ('sample_rate: ', rate)
-    # print ('play time : : ', times[-1] )
-
-    # plt.plot(times, data)
-    # plt.xlim(times[0], times[-1])
-
-    # plt.xlabel('time (s)')
-    # plt.ylabel('amplitude')
-    # plt.show()
+    return a_result

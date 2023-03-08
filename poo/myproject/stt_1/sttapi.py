@@ -13,7 +13,6 @@ api_key_id = os.environ.get('api_key_id')
 api_key = os.environ.get('api_key')
 
 class SttApi:
-    frames = []
 
     def __init__(self, RATE, CHUNK, RECORD_SECONDS):
         self.host = url
@@ -22,6 +21,8 @@ class SttApi:
         self.CHUNK = CHUNK
         self.RECORD_SECONDS = RECORD_SECONDS
         self.index = 0
+
+        self.frames = []
     
     @staticmethod
     def create(RATE, CHUNK, RECORD_SECONDS):

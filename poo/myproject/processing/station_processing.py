@@ -15,10 +15,7 @@ def text_precessing(a_result):
             line_list = line.split('|')
             KOR_DIC[line_list[0]] = line_list[1]
 
-
-    # a_result = input('입력')
     insert_list = list(a_result)
-    insert_len = len(a_result)
 
     for key in KOR_DIC:
         
@@ -35,7 +32,6 @@ def text_precessing(a_result):
     return answer
 
 def str_indexing(result_str):
-    # print(type(result_str))
     for i in range(len(result_str)):
         if result_str[i] == '역':
             station = result_str[:i]

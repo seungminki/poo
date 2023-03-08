@@ -9,8 +9,6 @@ train_key = os.environ.get('train_key')
 def output_keyvlaue(st, di):
     try:
         response = CTI.getCTI(train_key, st, di)
-        # Text_LIST = resText.list_to_TEXT(response)
-        print(response)
 
         return response
     

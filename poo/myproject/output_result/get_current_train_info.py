@@ -66,8 +66,14 @@ def get_current_train_info(TRAIN_LIST, UPDNLINE = '하행'):
             Destination = get_destination(train.get('bstatnNm'))
             Current_Location_num = get_current_location(train.get('arvlMsg2'))
             Current_Location_stn = train.get('arvlMsg3')
-            local_express_fx = lambda x : x if x == '급행' else '일반'
-            local_express = local_express_fx(train.get('btrainSttus'))
+
+            if Train_num[0] == '1':
+                local_express = '급행'
+
+            else:
+                local_express_fx = lambda x : x if x == '급행' else '일반'
+                local_express = local_express_fx(train.get('btrainSttus'))
+            
             train_status = convert_status_code_to_str(train.get('arvlCd'))
 
             if Current_Location_num < 25:
@@ -79,6 +85,7 @@ def get_current_train_info(TRAIN_LIST, UPDNLINE = '하행'):
                                 train_status
                                 ])
             
+        result_list = sorted(result_list, key=lambda x: x[3])
     # if len(result_list) == 0:
     #     result_list = '도착예정정보없음'
 
@@ -95,7 +102,7 @@ def getCTI(CERTIFICATION_KEY, STATION_NAME, UPDNLINE = '하행'):
 
 if __name__ == '__main__':
 
-    train_list = get_arrival_train_list('5a556a59416e656d33384d4e754941', '가산디지털단지')
+    train_list = get_arrival_train_list('', '가산디지털단지')
     
     try:
         print(get_current_train_info(train_list, '하행'))
