@@ -37,6 +37,9 @@ def get_current_location(MSG, SEC, SEARCH_STATION_NUMBER):
             search_station_number = int(SEARCH_STATION_NUMBER[-3:])
             num = abs(trains_station_number - search_station_number)
 
+        # elif '출발' in MSG:
+        #     num = '0'
+
         else:
             num = '0'
 
@@ -110,6 +113,8 @@ def get_current_train_info(TRAIN_LIST, UPDNLINE = '하행'):
             
     # if len(result_list) == 0:
     #     result_list = '도착예정정보없음'
+
+    result_list = sorted(result_list, key=lambda x: x[3])
 
     return result_list
 
